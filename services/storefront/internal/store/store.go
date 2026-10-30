@@ -235,6 +235,8 @@ func (s *Store) GrantRuntime(ctx context.Context, role, password string) error {
 		"GRANT INSERT,UPDATE ON " + sc + ".recharge_orders," + sc + ".recharge_redemptions," + sc + ".recharge_refunds TO " + r,
 		"GRANT INSERT ON " + sc + ".recharge_webhooks," + sc + ".recharge_credentials TO " + r,
 		"GRANT INSERT,UPDATE ON " + sc + ".account_supplier_orders," + sc + ".delivery_supplier_orders TO " + r,
+		"GRANT INSERT,UPDATE ON " + sc + ".cici_purchases TO " + r,
+		"GRANT INSERT ON " + sc + ".cici_purchase_events TO " + r,
 		"GRANT INSERT,UPDATE ON " + sc + ".xgift_purchases TO " + r,
 		"GRANT INSERT,DELETE ON " + sc + ".xgift_preflights," + sc + ".xgift_preflight_backends TO " + r,
 		"GRANT INSERT ON " + sc + ".xgift_recovery_attempts TO " + r,

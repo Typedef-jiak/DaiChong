@@ -116,6 +116,9 @@ func register(r *gin.Engine, s *store.Store, opts Options) {
 		}
 		// Order preparation and fulfillment can make several bounded supplier calls.
 		// Leave time for the whole chain, not just its first 10-second request.
+		if strings.HasPrefix(c.FullPath(), "/api/admin/cici") {
+			timeout = 45 * time.Second
+		}
 		if c.Request.Method == http.MethodPost && (c.FullPath() == "/api/orders" || c.FullPath() == "/api/orders/:id/fulfillment") || strings.Contains(c.FullPath(), "/xgift/") || c.FullPath() == "/api/admin/orders/:id/actions" || c.FullPath() == "/api/admin/recharge/reconcile" {
 			timeout = 45 * time.Second
 		}
@@ -294,6 +297,7 @@ func register(r *gin.Engine, s *store.Store, opts Options) {
 	}
 	admin := group.Group("/admin")
 	admin.Use(require("admin"))
+	registerCici(admin, opts.Cici)
 	admin.GET("/security", func(c *gin.Context) {
 		if opts.SecurityAudit == nil {
 			c.JSON(200, gin.H{"enabled": false, "events": []any{}})

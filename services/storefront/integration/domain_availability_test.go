@@ -93,7 +93,8 @@ INSERT INTO partner_payout_accounts(partner_id,phone,name,version) VALUES('a','1
 INSERT INTO partner_notification_settings(partner_id,order_completed_email,version) VALUES('a',true,3)`)
 	// Reconstruct release 020 in this disposable schema, including old sessions,
 	// notification preferences and payout accounts that must survive the upgrade.
-	execSQL(t, owner, `DROP TABLE partner_ticket_events; DROP TABLE partner_tickets; DROP TABLE partner_ticket_notifications;
+	execSQL(t, owner, `DROP TABLE cici_purchase_events; DROP TABLE cici_purchases;
+DROP TABLE partner_ticket_events; DROP TABLE partner_tickets; DROP TABLE partner_ticket_notifications;
 DROP FUNCTION coupon_reserved(orders);
 DROP TRIGGER partner_store_prices ON partner_prices;
 DROP FUNCTION provision_store_prices();

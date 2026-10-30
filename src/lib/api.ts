@@ -6,7 +6,7 @@ export class RequestError extends Error {
 export async function api<T>(path: string, data?: unknown, signal?: AbortSignal): Promise<T> {
   const admin = path.startsWith('/api/admin/')
   const supplierOperation = data !== undefined && (path === '/api/orders' || /^\/api\/partner\/domains\/[^/]+\/payment$/.test(path) || /^\/api\/admin\/orders\/[^/]+\/(platform-status|recharge-retry)$/.test(path) || /^\/api\/orders\/[^/]+\/fulfillment$/.test(path) || /^\/api\/admin\/refunds\/[^/]+$/.test(path))
-  const timeout = AbortSignal.timeout(/\/session-precheck$/.test(path) || /\/recharge-retry$/.test(path) ? 65000 : supplierOperation ? 50000 : path === '/api/orders/xgift/eligibility' ? 35000 : 15000)
+  const timeout = AbortSignal.timeout(/\/session-precheck$/.test(path) || /\/recharge-retry$/.test(path) ? 65000 : path.startsWith('/api/admin/cici') || supplierOperation ? 50000 : path === '/api/orders/xgift/eligibility' ? 35000 : 15000)
   const headers: Record<string, string> = data === undefined ? {} : { 'Content-Type': 'application/json' }
   if (typeof location !== 'undefined' && (path.startsWith('/api/orders') || path.startsWith('/api/catalog'))) Object.assign(headers, storefrontScopeHeaders())
   const response = await fetch(path, { method: data === undefined ? 'GET' : 'POST', credentials: 'same-origin', redirect: admin ? 'manual' : 'follow', headers, body: data === undefined ? undefined : JSON.stringify(data), signal: signal ? AbortSignal.any([signal, timeout]) : timeout })

@@ -13,6 +13,7 @@ from pathlib import Path
 from urllib.parse import urlsplit
 
 PUBLIC_HOSTS = {
+    'aicici888.com',  # Explicit Cici v1.1 supplier integration; credentials remain local.
     'api.cloudflare.com', 'challenges.cloudflare.com', 'developers.cloudflare.com',
     'api.resend.com', 'api.telegram.org', 'open.feishu.cn', 't.me',
     'openapi.alipay.com', 'openapi-sandbox.dl.alipaydev.com', 'qr.alipay.com',

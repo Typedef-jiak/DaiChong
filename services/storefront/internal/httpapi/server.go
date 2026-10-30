@@ -16,6 +16,7 @@ import (
 	"gptibo/storefront/internal/access"
 	"gptibo/storefront/internal/auth"
 	"gptibo/storefront/internal/catalog"
+	"gptibo/storefront/internal/cici"
 	"gptibo/storefront/internal/delivery"
 	"gptibo/storefront/internal/domains"
 	"gptibo/storefront/internal/mailer"
@@ -29,6 +30,7 @@ import (
 )
 
 type Options struct {
+	Cici              *cici.Service
 	AdminAccess       *access.Service
 	SecurityAudit     *securityaudit.Service
 	Turnstile         *turnstile.Service
@@ -71,6 +73,12 @@ func Router(s *store.Store, workerID string, logger *slog.Logger, options ...Opt
 	if opts.Auth == nil {
 		opts.Auth, _ = auth.New(s, auth.Config{})
 	}
+	cs := cici.Service{}
+	if opts.Cici != nil {
+		cs = *opts.Cici
+	}
+	cs.Store = s
+	opts.Cici = &cs
 	pc := procurement.Service{}
 	if opts.Procurement != nil {
 		pc = *opts.Procurement

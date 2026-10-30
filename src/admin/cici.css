@@ -1,0 +1,5 @@
+.cici-workspace { display: grid; gap: 24px; }
+.cici-connection, .cici-actions { display: grid; gap: 12px; margin-top: 16px; justify-items: start; }
+.cici-pagination { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px; flex-wrap: wrap; }
+.cici-detail { max-height: 85dvh; overflow-y: auto; overflow-wrap: anywhere; }
+.cici-payload { max-height: 280px; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere; border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin: 12px 0; user-select: text; }

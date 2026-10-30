@@ -1,0 +1,20 @@
+# Add after compose.yaml (and compose.auth.yaml for the administrator login).
+x-cici: &cici-environment
+  CICI_ENABLED: ${CICI_ENABLED:-false}
+  CICI_PURCHASES_ENABLED: ${CICI_PURCHASES_ENABLED:-false}
+  CICI_API_KEY_FILE: /run/cici/cici-api-key
+  CICI_API_SECRET_FILE: /run/cici/cici-api-secret
+
+services:
+  api:
+    environment:
+      <<: *cici-environment
+    volumes:
+      - ./.secrets/cici-api-key:/run/cici/cici-api-key:ro
+      - ./.secrets/cici-api-secret:/run/cici/cici-api-secret:ro
+  worker:
+    environment:
+      <<: *cici-environment
+    volumes:
+      - ./.secrets/cici-api-key:/run/cici/cici-api-key:ro
+      - ./.secrets/cici-api-secret:/run/cici/cici-api-secret:ro
